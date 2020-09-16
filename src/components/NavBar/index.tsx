@@ -3,7 +3,7 @@ import React, { useState } from "react";
 //Bootstrap
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import Button from "react-bootstrap/Button";
 
 //Component
 import LoginModal from "../../components/LoginModal";
@@ -19,15 +19,12 @@ const NavBar: React.FC = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/">Link</Nav.Link>
-            <NavDropdown title="Login" id="basic-nav-dropdown">
-              <NavDropdown.Item onClick={() => setShow(true)}>
-                Fazer Login
-              </NavDropdown.Item>
-              <NavDropdown.Item href="Cadastro">Cadastre-se</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="Sair">Sair</NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link href="/">Sobre</Nav.Link>
+          </Nav>
+          <Nav className="login">
+            <Button variant="outline-secondary" onClick={() => setShow(true)}>
+              Fazer login
+            </Button>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

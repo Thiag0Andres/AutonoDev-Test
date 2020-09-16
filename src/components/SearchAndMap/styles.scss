@@ -1,6 +1,10 @@
 @import "../../mixin.scss";
 
-.content {
+#page-search-map {
+  width: 100%;
+  max-width: 1100px;
+
+  margin: 0 auto;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -9,9 +13,11 @@
   padding: 40px 0;
 
   .Map {
-    width: 350px;
-    height: 350px;
-    border-radius: 8px;
-    margin-bottom: 24px;
+    .leaflet-container {
+      width: 350px;
+      height: 350px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
   }
 }

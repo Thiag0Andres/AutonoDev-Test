@@ -15,17 +15,15 @@ const Menu: React.FC = () => {
       </div>
       <div className="content">
         <main className="info">
-          <h1>Seu site de opniões .</h1>
+          <h1> Sua ferramenta de feedback</h1>
           <p>
-            Ajudamos pessoas a encontarem comentarios sobre as zonas de João
-            Pessoa.
+            Ajudamos você a encontrar informações sobre as zonas de João Pessoa.
           </p>
-
           <Link to="/search-zone">
             <span>
               <BiSearchAlt />
             </span>
-            <strong>Procrure por uma zona no mapa</strong>
+            <strong>Procure por uma zona no mapa</strong>
           </Link>
         </main>
       </div>

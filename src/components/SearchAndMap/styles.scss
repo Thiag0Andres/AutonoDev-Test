@@ -1,0 +1,17 @@
+@import "../../mixin.scss";
+
+.content {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px 0;
+
+  .Map {
+    width: 350px;
+    height: 350px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+  }
+}

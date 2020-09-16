@@ -1,7 +1,9 @@
-import React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Switch } from "react-router-dom";
 
-import Routes from '../../routes/__Routes';
+import Routes from "../../routes/__Routes";
+
+import "./styles.css";
 
 const App = () => (
   <BrowserRouter>

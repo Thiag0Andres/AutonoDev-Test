@@ -5,7 +5,6 @@ import App from "./containers/App";
 
 import store from "./store";
 
-import "./common.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(

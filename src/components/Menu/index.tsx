@@ -9,8 +9,8 @@ import "./styles.scss";
 
 const Menu: React.FC = () => {
   return (
-    <div className="page-home">
-      <div className="image">
+    <div id="page-home-menu">
+      <div className="image-menu">
         <img src={PointMap} alt="" />
       </div>
       <div className="content">

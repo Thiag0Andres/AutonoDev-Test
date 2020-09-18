@@ -7,7 +7,7 @@ import "./styles.scss";
 
 const About: React.FC = () => {
   return (
-    <div className="page-home">
+    <div id="page-home-about">
       <div className="content">
         <main className="info">
           <h1> O que é o AutonoDev?</h1>
@@ -19,7 +19,7 @@ const About: React.FC = () => {
           </p>
         </main>
       </div>
-      <div className="image">
+      <div className="image-about">
         <img src={Map} alt="" />
       </div>
     </div>

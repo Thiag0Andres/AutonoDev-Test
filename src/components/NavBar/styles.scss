@@ -1,17 +1,1 @@
 @import "../../mixin.scss";
-
-#page-header {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  margin-bottom: 0 !important;
-
-  .navbar-brand {
-    display: flex !important;
-  }
-
-  .navbar-collapse {
-    display: flex !important;
-    justify-content: space-between;
-  }
-}

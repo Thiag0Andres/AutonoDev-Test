@@ -4,6 +4,7 @@ import React from "react";
 import NavBar from "../../components/NavBar";
 import Menu from "../../components/Menu";
 import About from "../../components/About";
+import Footer from "../../components/Footer";
 
 const Home: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const Home: React.FC = () => {
       <NavBar />
       <Menu />
       <About />
+      <Footer />
     </>
   );
 };

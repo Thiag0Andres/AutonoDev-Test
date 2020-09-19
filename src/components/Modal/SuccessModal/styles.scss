@@ -1,0 +1,13 @@
+@import "../../../mixin.scss";
+
+#modal-success {
+  .content {
+    .image-success {
+      img {
+        width: 10px;
+        height: 10px;
+        object-fit: contain;
+      }
+    }
+  }
+}

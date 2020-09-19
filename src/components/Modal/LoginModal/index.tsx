@@ -16,9 +16,14 @@ const LoginModal = ({ show, onHide }: MyProps) => {
   const props = { show, onHide };
 
   return (
-    <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
-      <Modal.Header closeButton>
-        <h4>Logo</h4>
+    <Modal
+      id="modal"
+      {...props}
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton className="modal-header">
+        <h4>AutonoDev</h4>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -32,7 +37,7 @@ const LoginModal = ({ show, onHide }: MyProps) => {
           </Form.Group>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="modal-footer">
         <Button onClick={props.onHide} className="primary-button">
           Entrar
         </Button>

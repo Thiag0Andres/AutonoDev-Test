@@ -1,0 +1,19 @@
+@import "../../../mixin.scss";
+
+#modal {
+  width: 30%;
+  .modal-header {
+    h4 {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+  }
+  .modal-footer {
+    button {
+      box-shadow: none;
+      background-color: #2fb86e;
+      border-color: #2fb86e;
+    }
+  }
+}

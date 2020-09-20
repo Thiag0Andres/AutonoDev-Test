@@ -1,0 +1,25 @@
+@import "../../../mixin.scss";
+#modal {
+  .body {
+    .form-control-container {
+      .text-area {
+        &:hover,
+        &:active,
+        &:focus {
+          box-shadow: none;
+          border-color: var(--title-color);
+        }
+      }
+    }
+    .buttons {
+      .enviar {
+        box-shadow: none;
+        background-color: #34cb79;
+        border-color: #34cb79;
+      }
+      .enviar:hover {
+        background: #2fb86e;
+      }
+    }
+  }
+}

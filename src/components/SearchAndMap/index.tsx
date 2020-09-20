@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 
+//Icons
+import { AiFillCaretDown } from "react-icons/ai";
+
 //Bootstrap
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 
 //data
 import dataJSON from "../../data/neighborhoods.json";
@@ -38,6 +40,7 @@ const SearchAndMap: React.FC = () => {
   const [neighborhoods, setNeighborhoods] = useState<Neighborhood[]>([]);
   const [zone, setZone] = useState(0);
   const [showNeighborhood, setShowNeighborhoods] = useState(false);
+  const [showWaiting, setShowWaiting] = useState(true);
   const [ModalChoice, setModalChoice] = useState(false);
   const [choice, setChoice] = useState<string>("");
   const [neighborhoodId, setNeighborhoodId] = useState(0);
@@ -69,6 +72,7 @@ const SearchAndMap: React.FC = () => {
 
   const handleSelect = () => {
     setShowNeighborhoods(true);
+    setShowWaiting(false);
   };
 
   const handleModalChoice = (neighborhood: string) => {
@@ -83,25 +87,33 @@ const SearchAndMap: React.FC = () => {
   return (
     <div id="page-search-map">
       <div className="content-left">
-        <div className="d-flex">
-          <Form.Group className="form-search">
-            <Form.Control
-              className="form-control form-control-lg"
-              as="select"
-              placeholder="Selecione uma zona"
-              onChange={(e: any) => {
-                setZone(Number(e.target.value));
-                handleSelect();
-              }}
-            >
-              <option value={0}> Selecione uma zona</option>
-              {data.map((item: Neighborhoods) => (
-                <option key={item.zone} value={item.zone}>
-                  {`Zona ${item.zone}`}
-                </option>
-              ))}
-            </Form.Control>
-          </Form.Group>
+        <div className="field">
+          <select
+            name="search"
+            id="search"
+            placeholder="Selecione uma zona"
+            onChange={(e: any) => {
+              setZone(Number(e.target.value));
+              handleSelect();
+            }}
+          >
+            <option value={0} onClick={() => setShowWaiting(true)}>
+              Selecione uma zona
+            </option>
+            {data.map((item: Neighborhoods) => (
+              <option key={item.zone} value={item.zone}>
+                {`Zona ${item.zone}`}
+              </option>
+            ))}
+          </select>
+          <Button
+            id="ir"
+            style={{ boxShadow: "none" }}
+            variant="primary"
+            type="submit"
+          >
+            <AiFillCaretDown />
+          </Button>
         </div>
         <div className="box1">
           <div className="map">
@@ -119,28 +131,28 @@ const SearchAndMap: React.FC = () => {
       </div>
       <div className="content-right">
         <div className="box2">
-          <div className="waiting">
-            <h1>Esperando por uma zona</h1>
-            <div className="image-waiting">
-              <img src={Waiting} alt="" />
-            </div>
-          </div>
-          {showNeighborhood && (
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <div className="neighborhoods">
-                {!!neighborhoods.length &&
-                  neighborhoods.map((neighborhood: Neighborhood) => (
-                    <Button
-                      className="botao-neighborhoods"
-                      onClick={() => {
-                        handleModalChoice(neighborhood.name);
-                        setNeighborhoodId(neighborhood.id);
-                      }}
-                    >
-                      {neighborhood.name}
-                    </Button>
-                  ))}
+          {showWaiting && (
+            <div className="waiting">
+              <h1>Esperando por uma zona</h1>
+              <div className="image-waiting">
+                <img src={Waiting} alt="" />
               </div>
+            </div>
+          )}
+          {showNeighborhood && (
+            <div className="neighborhoods">
+              {!!neighborhoods.length &&
+                neighborhoods.map((neighborhood: Neighborhood) => (
+                  <Button
+                    className="botao-neighborhoods"
+                    onClick={() => {
+                      handleModalChoice(neighborhood.name);
+                      setNeighborhoodId(neighborhood.id);
+                    }}
+                  >
+                    {neighborhood.name}
+                  </Button>
+                ))}
             </div>
           )}
         </div>

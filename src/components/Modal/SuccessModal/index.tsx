@@ -2,9 +2,12 @@ import React from "react";
 
 //Bootstrap
 import Modal from "react-bootstrap/Modal";
+import Row from "react-bootstrap/Row";
 
 //Images
 import SuccessMessage from "../../../images/SuccessMessage.svg";
+
+import "./styles.scss";
 
 interface Props {
   zone: number;
@@ -18,18 +21,29 @@ interface Props {
 const SuccessModal: React.FC<Props> = (props) => {
   return (
     <Modal
-      className="modal-success"
+      id="modal"
       show={props.value}
       onHide={() => props.handleClose()}
+      size="sm"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
+      <Modal.Header closeButton className="header">
+        <div className="image-success">
+          <img src={SuccessMessage} alt="" />
+        </div>
+        <h6>Feedback realizado com sucesso</h6>
+      </Modal.Header>
+
       <Modal.Body className="body">
-        <div className="content">
-          <div className="image-success">
-            <img src={SuccessMessage} alt="" />
-          </div>
-          <p>Feedback realizado com sucesso</p>
+        <div className="text-container">
+          <Row className="row-container">
+            {/* <PersonIcon style={{ color: "grey", fontSize: 35 }} /> */}
+            <p>Usuário teste</p>
+          </Row>
+          <p>ID do bairro: {props.id}</p>
+          <p>Zona do bairro: {props.zone}</p>
+          <p>"{props.feedback}"</p>
         </div>
       </Modal.Body>
     </Modal>

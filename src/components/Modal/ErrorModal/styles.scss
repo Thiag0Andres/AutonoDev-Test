@@ -1,0 +1,19 @@
+@import "../../../mixin.scss";
+
+#modal {
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+
+    .image-error {
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      img {
+        width: 230px;
+      }
+    }
+  }
+}

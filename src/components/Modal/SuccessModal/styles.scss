@@ -1,12 +1,22 @@
 @import "../../../mixin.scss";
 
-#modal-success {
-  .content {
+#modal {
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+
     .image-success {
+      padding: 10px;
+      display: flex;
+      justify-content: center;
       img {
-        width: 10px;
-        height: 10px;
-        object-fit: contain;
+        width: 230px;
+      }
+
+      p {
+        padding: 10px;
       }
     }
   }

@@ -6,11 +6,9 @@ import Modal from "react-bootstrap/Modal";
 //Images
 import ErrorMessage from "../../../images/ErrorMessage.svg";
 
+import "./styles.scss";
+
 interface Props {
-  zone: number;
-  id: number;
-  neighborhood: string;
-  feedback: string;
   value: boolean;
   handleClose(): any;
 }
@@ -18,17 +16,29 @@ interface Props {
 const SuccessModal: React.FC<Props> = (props) => {
   return (
     <Modal
-      className="modal-error"
+      id="modal"
       show={props.value}
       onHide={() => props.handleClose()}
+      size="sm"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Body className="body">
+      <Modal.Header closeButton className="header">
         <div className="image-error">
           <img src={ErrorMessage} alt="" />
         </div>
-        <p> Você deve digitar alguma mensagem para enviar </p>
+      </Modal.Header>
+
+      <Modal.Body
+        className="body"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
+        <p> Você deve digitar alguma mensagem para poder enviar </p>
       </Modal.Body>
     </Modal>
   );

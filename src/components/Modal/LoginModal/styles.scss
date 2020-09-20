@@ -12,8 +12,11 @@
   .modal-footer {
     button {
       box-shadow: none;
-      background-color: #2fb86e;
-      border-color: #2fb86e;
+      background-color: #34cb79;
+      border-color: #34cb79;
+    }
+    button:hover {
+      background: #2fb86e;
     }
   }
 }

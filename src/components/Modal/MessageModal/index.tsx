@@ -5,9 +5,13 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+//Auth
+import { isAuthenticated } from "../../../services/auth";
+
 //Components
 import SuccessModal from "../SuccessModal";
 import ErrorModal from "../ErrorModal";
+import WarningModal from "../WarningModal";
 
 import "./styles.scss";
 
@@ -22,23 +26,35 @@ interface Props {
 const MessageModal: React.FC<Props> = (props) => {
   //Estados
   const [feedback, setFeedback] = useState<string>("");
+  const [feedbackAux, setFeedbackAux] = useState<string>("");
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [showWarning, setShowWarning] = useState(false);
+
+  //Mostra modal Warning
+  const handleShowWarning = () => setShowWarning(true);
 
   //Fecha os modais
   const handleClose = () => {
     setShowSuccessModal(false);
     setShowError(false);
+    setShowWarning(false);
   };
 
   //Submissão para o modal de sucesso
   const handleSubmit = () => {
-    if (feedback) {
-      setShowSuccessModal(true);
-      props.handleClose();
-    } else if (" ") {
-      setShowError(true);
-    }
+    const isLogged = isAuthenticated();
+
+    if (isLogged) {
+      if (feedback) {
+        setShowSuccessModal(true);
+        setFeedbackAux(feedback);
+        setFeedback("");
+        props.handleClose();
+      } else {
+        setShowError(true);
+      }
+    } else handleShowWarning();
   };
 
   return (
@@ -75,6 +91,7 @@ const MessageModal: React.FC<Props> = (props) => {
                   marginTop: "10px",
                 }}
                 placeholder="Escreva aqui"
+                value={feedback}
                 onChange={(e) => {
                   setFeedback(e.target.value);
                   console.log(feedback);
@@ -105,12 +122,13 @@ const MessageModal: React.FC<Props> = (props) => {
         zone={props.zone}
         id={props.id}
         neighborhood={props.name}
-        feedback={feedback}
+        feedback={feedbackAux}
         value={showSuccessModal}
         handleClose={handleClose}
       />
 
       <ErrorModal value={showError} handleClose={handleClose} />
+      <WarningModal value={showWarning} handleClose={handleClose} />
     </>
   );
 };

@@ -1,20 +1,38 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 
-//Icons
-import { AiFillCaretDown } from "react-icons/ai";
+//Dom
+import { Link } from "react-router-dom";
 
 //Bootstrap
 import Button from "react-bootstrap/Button";
+import Nav from "react-bootstrap/Nav";
 
 //data
 import dataJSON from "../../data/neighborhoods.json";
+
+//Redux e Auth
+import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
+import { removeUser } from "../../store/ducks/user/actions";
+import { isAuthenticated } from "../../services/auth";
+
+//Types
+import { User } from "../../store/ducks/user/types";
 
 //leaflet
 import { Map, TileLayer, Marker } from "react-leaflet";
 
 //Components
 import MessageModal from "../Modal/MessageModal";
+import LoginModal from "../Modal/LoginModal";
+
+//Message
+import { useSnackbar } from "notistack";
+
+//Icons
+import { AiFillCaretDown } from "react-icons/ai";
+import { FiArrowLeft } from "react-icons/fi";
+import { BiUserCircle } from "react-icons/bi";
 
 //Images
 import Waiting from "../../images/Waiting.svg";
@@ -41,12 +59,18 @@ const SearchAndMap: React.FC = () => {
   ]);
   const [neighborhoods, setNeighborhoods] = useState<Neighborhood[]>([]);
   const [zone, setZone] = useState(0);
-  const [zoneSelectd, setzoneSelectd] = useState(0);
+  const [show, setShow] = useState(false);
   const [showNeighborhood, setShowNeighborhoods] = useState(false);
   const [showWaiting, setShowWaiting] = useState(true);
   const [ModalChoice, setModalChoice] = useState(false);
   const [choice, setChoice] = useState<string>("");
   const [neighborhoodId, setNeighborhoodId] = useState(0);
+
+  const [isLogged, setIsLogged] = useState(false);
+
+  const dispatch = useDispatch();
+  const user: User = useSelector((state: RootStateOrAny) => state.user.user);
+  const { enqueueSnackbar } = useSnackbar();
 
   const data = dataJSON.neighborhoods;
 
@@ -67,11 +91,6 @@ const SearchAndMap: React.FC = () => {
     searchZone();
   }, [zone]);
 
-  //Recebe o valor da zona
-  const handleSelectZone = (value: any) => {
-    setzoneSelectd(value);
-  };
-
   //Troca de telas interativas
   const handleSelect = () => {
     setShowNeighborhoods(true);
@@ -89,93 +108,137 @@ const SearchAndMap: React.FC = () => {
     setModalChoice(false);
   };
 
+  // Atualiza o estado de autenticação na mudança de usuário
+  useEffect(() => {
+    const response = isAuthenticated();
+    setIsLogged(response);
+  }, [user]);
+
+  //Logout do usuário
+  const logout = () => {
+    enqueueSnackbar("Usuário deslogado com sucesso!", { variant: "info" });
+    dispatch(removeUser());
+  };
+
   return (
     <div id="page-search-map">
-      <div className="content-left">
-        <div className="field">
-          <select
-            name="search"
-            id="search"
-            placeholder="Selecione uma zona"
-            onChange={(e: any) => {
-              setZone(Number(e.target.value));
-              handleSelect();
-            }}
-          >
-            <option
-              value={0}
-              onClick={() => {
-                setShowWaiting(true);
-                setShowNeighborhoods(false);
+      <header className="header">
+        <Link to="/">
+          <FiArrowLeft />
+          <h3 style={{ fontSize: "20px" }}>Voltar para home</h3>
+        </Link>
+
+        <Nav className="login">
+          {isLogged ? (
+            <div
+              className="profile"
+              onClick={logout}
+              style={{
+                display: "flex",
+                flexDirection: "row",
               }}
             >
-              Selecione uma zona
-            </option>
-            {data.map((item: Neighborhoods) => (
-              <option
-                key={item.zone}
-                value={item.zone}
-                onClick={() => handleSelectZone(item.zone)}
-              >
-                {`Zona ${item.zone}`}
-              </option>
-            ))}
-          </select>
-          <Button
-            id="ir"
-            style={{ boxShadow: "none" }}
-            variant="primary"
-            type="submit"
-          >
-            <AiFillCaretDown />
-          </Button>
-        </div>
-        <div className="box1">
-          <div className="map">
-            <Map center={initialPosition} zoom={11}>
-              <TileLayer
-                attribution='&amp;copy <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              <BiUserCircle
+                style={{
+                  fontSize: "24px",
+                  color: "var(--title-color)",
+                  fontWeight: "bold",
+                  marginRight: "10px",
+                }}
               />
-              {neighborhoods.map((mark: Neighborhood) => (
-                <Marker position={mark.location} key={mark.id} />
+              <h3 style={{ fontSize: "20px" }}>{user.name}</h3>
+            </div>
+          ) : (
+            <Button variant="outline-secondary" onClick={() => setShow(true)}>
+              Fazer login
+            </Button>
+          )}
+        </Nav>
+      </header>
+      <div className="box1">
+        <div className="content-left">
+          <div className="field">
+            <select
+              name="search"
+              id="search"
+              placeholder="Selecione uma zona"
+              onChange={(e: any) => {
+                setZone(Number(e.target.value));
+                handleSelect();
+              }}
+            >
+              <option
+                value={0}
+                onClick={() => {
+                  setShowWaiting(true);
+                  setShowNeighborhoods(false);
+                }}
+              >
+                Selecione uma zona
+              </option>
+              {data.map((item: Neighborhoods) => (
+                <option key={item.zone} value={item.zone}>
+                  {`Zona ${item.zone}`}
+                </option>
               ))}
-            </Map>
+            </select>
+            <Button
+              id="ir"
+              style={{ boxShadow: "none" }}
+              variant="primary"
+              type="submit"
+            >
+              <AiFillCaretDown />
+            </Button>
+          </div>
+          <div className="box2">
+            <div className="map">
+              <Map center={initialPosition} zoom={11}>
+                <TileLayer
+                  attribution='&amp;copy <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {neighborhoods.map((mark: Neighborhood) => (
+                  <Marker position={mark.location} key={mark.id} />
+                ))}
+              </Map>
+            </div>
+          </div>
+        </div>
+        <div className="content-right">
+          <div className="box3">
+            {showWaiting && (
+              <div className="waiting">
+                <h1>Esperando por uma zona</h1>
+                <div className="image-waiting">
+                  <img src={Waiting} alt="" />
+                </div>
+              </div>
+            )}
+            {showNeighborhood && (
+              <div className="neighborhoods">
+                <div className="text">
+                  <h1>Zona {zone}</h1>
+                </div>
+                <div className="box1">
+                  {!!neighborhoods.length &&
+                    neighborhoods.map((neighborhood: Neighborhood) => (
+                      <Button
+                        onClick={() => {
+                          handleModalChoice(neighborhood.name);
+                          setNeighborhoodId(neighborhood.id);
+                        }}
+                      >
+                        {neighborhood.name}
+                      </Button>
+                    ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
-      <div className="content-right">
-        <div className="box2">
-          {showWaiting && (
-            <div className="waiting">
-              <h1>Esperando por uma zona</h1>
-              <div className="image-waiting">
-                <img src={Waiting} alt="" />
-              </div>
-            </div>
-          )}
-          {showNeighborhood && (
-            <div className="neighborhoods">
-              <div className="text">
-                <h1>Zona {zoneSelectd}</h1>
-              </div>
-              <div className="box1">
-                {!!neighborhoods.length &&
-                  neighborhoods.map((neighborhood: Neighborhood) => (
-                    <Button
-                      onClick={() => {
-                        handleModalChoice(neighborhood.name);
-                        setNeighborhoodId(neighborhood.id);
-                      }}
-                    >
-                      {neighborhood.name}
-                    </Button>
-                  ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+
       <MessageModal
         zone={zone}
         id={neighborhoodId}
@@ -183,6 +246,7 @@ const SearchAndMap: React.FC = () => {
         value={ModalChoice}
         handleClose={handleClose}
       />
+      <LoginModal show={show} onHide={() => setShow(false)} />
     </div>
   );
 };

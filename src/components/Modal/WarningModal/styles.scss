@@ -1,0 +1,31 @@
+@import "../../../mixin.scss";
+
+#modal {
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+
+    .warning {
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      img {
+        width: 230px;
+      }
+    }
+  }
+  .body {
+    .buttons {
+      .enviar {
+        box-shadow: none;
+        background-color: #34cb79;
+        border-color: #34cb79;
+      }
+      .enviar:hover {
+        background: #2fb86e;
+      }
+    }
+  }
+}

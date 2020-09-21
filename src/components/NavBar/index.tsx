@@ -14,15 +14,18 @@ import { isAuthenticated } from "../../services/auth";
 import { User } from "../../store/ducks/user/types";
 
 //Message
-//import { useSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 
 //Components
 import LoginModal from "../Modal/LoginModal";
 
+//Icons
+import { BiUserCircle } from "react-icons/bi";
+
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
-  //const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   //Estados
   const [show, setShow] = useState(false);
@@ -40,7 +43,7 @@ const NavBar: React.FC = () => {
 
   //Logout do usuário
   const logout = () => {
-    //enqueueSnackbar("Usuário deslogado com sucesso!", { variant: "info" });
+    enqueueSnackbar("Usuário deslogado com sucesso!", { variant: "info" });
     dispatch(removeUser());
   };
 
@@ -48,7 +51,7 @@ const NavBar: React.FC = () => {
     <>
       <Navbar id="navbar" bg="light" expand="lg" fixed="top">
         <Navbar.Brand className="logo" href="/">
-          AutonoDev
+          <h1 style={{ fontSize: "26px" }}>AutonoDev</h1>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -58,9 +61,23 @@ const NavBar: React.FC = () => {
           </Nav>
           <Nav className="login">
             {isLogged ? (
-              <div className="profile" onClick={logout}>
-                {/* <img src={noUser} alt={user.name} /> */}
-                <h3>{user.name}</h3>
+              <div
+                className="profile"
+                onClick={logout}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                <BiUserCircle
+                  style={{
+                    fontSize: "24px",
+                    color: "var(--title-color)",
+                    fontWeight: "bold",
+                    marginRight: "10px",
+                  }}
+                />
+                <h3 style={{ fontSize: "20px" }}>{user.name}</h3>
               </div>
             ) : (
               <Button variant="outline-secondary" onClick={() => setShow(true)}>

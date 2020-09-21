@@ -4,6 +4,12 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 
+// Redux
+import { useSelector, RootStateOrAny } from "react-redux";
+
+//Types
+import { User } from "../../../store/ducks/user/types";
+
 //Images
 import SuccessMessage from "../../../images/SuccessMessage.svg";
 
@@ -19,6 +25,7 @@ interface Props {
 }
 
 const SuccessModal: React.FC<Props> = (props) => {
+  const user: User = useSelector((state: RootStateOrAny) => state.user.user);
   return (
     <Modal
       id="modal"
@@ -38,10 +45,9 @@ const SuccessModal: React.FC<Props> = (props) => {
       <Modal.Body className="body">
         <div className="text-container">
           <Row className="row-container">
-            {/* <PersonIcon style={{ color: "grey", fontSize: 35 }} /> */}
-            <p>Usuário teste</p>
+            <p style={{ fontWeight: "bolder" }}> {user && user.name}</p>
           </Row>
-          <p>
+          <p style={{ fontWeight: "bolder" }}>
             {props.neighborhood}: Zona {props.zone} / ID = {props.id}
           </p>
           <div className="box1">

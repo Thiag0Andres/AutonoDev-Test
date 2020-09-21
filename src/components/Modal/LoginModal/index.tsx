@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 //Message
-//import { useSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 
 //Redux e Auth
 import { checkAuth } from "../../../services/validation";
@@ -22,7 +22,7 @@ interface Props {
 
 const LoginModal: React.FC<Props> = (props) => {
   const dispatch = useDispatch();
-  //const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   //Estados
   const [email, setEmail] = useState<string>("");
@@ -46,19 +46,19 @@ const LoginModal: React.FC<Props> = (props) => {
     });
 
     if (email === "") {
-      //enqueueSnackbar("Campo email vazio", { variant: "error" });
+      enqueueSnackbar("Campo email vazio", { variant: "error" });
     } else if (password === "") {
-      //enqueueSnackbar("Campo senha vazio", { variant: "error" });
+      enqueueSnackbar("Campo senha vazio", { variant: "error" });
     } else if (!isEmailValid) {
-      //enqueueSnackbar("Email inválido!", { variant: "error" });
+      enqueueSnackbar("Email inválido!", { variant: "error" });
     } else if (isValidated) {
       dispatch(updateUser({ user }));
-      //enqueueSnackbar("Usuário logado com sucesso!", { variant: "success" });
+      enqueueSnackbar("Usuário logado com sucesso!", { variant: "success" });
       props.onHide();
     } else {
       setEmail("");
       setPassword("");
-      //enqueueSnackbar("Falha ao autenticar.", { variant: "error" });
+      enqueueSnackbar("Falha ao autenticar.", { variant: "error" });
     }
   };
 

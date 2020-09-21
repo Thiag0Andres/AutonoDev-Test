@@ -1,6 +1,6 @@
 import React from "react";
 
-//image
+//images
 import Map from "../../images/Map.svg";
 
 import "./styles.scss";

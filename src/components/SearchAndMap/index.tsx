@@ -13,10 +13,10 @@ import dataJSON from "../../data/neighborhoods.json";
 //leaflet
 import { Map, TileLayer, Marker } from "react-leaflet";
 
-//Component
+//Components
 import MessageModal from "../Modal/MessageModal";
 
-//Image
+//Images
 import Waiting from "../../images/Waiting.svg";
 
 import "./styles.scss";
@@ -33,12 +33,15 @@ interface Neighborhood {
 }
 
 const SearchAndMap: React.FC = () => {
+  //Estados
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
     -7.1215022,
     -34.8814724,
   ]);
   const [neighborhoods, setNeighborhoods] = useState<Neighborhood[]>([]);
   const [zone, setZone] = useState(0);
+  const [zoneSelectd, setzoneSelectd] = useState(0);
   const [showNeighborhood, setShowNeighborhoods] = useState(false);
   const [showWaiting, setShowWaiting] = useState(true);
   const [ModalChoice, setModalChoice] = useState(false);
@@ -47,6 +50,7 @@ const SearchAndMap: React.FC = () => {
 
   const data = dataJSON.neighborhoods;
 
+  //De acordo com a zona selecionada seta o array de bairros
   const searchZone = () => {
     // eslint-disable-next-line array-callback-return
     data.map((item: Neighborhoods) => {
@@ -58,28 +62,29 @@ const SearchAndMap: React.FC = () => {
     });
   };
 
+  //Toda vez que for selecionada uma zona diferente, executa a função acima
   useEffect(() => {
     searchZone();
   }, [zone]);
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
+  //Recebe o valor da zona
+  const handleSelectZone = (value: any) => {
+    setzoneSelectd(value);
+  };
 
-      setInitialPosition([latitude, longitude]);
-    });
-  }, []);
-
+  //Troca de telas interativas
   const handleSelect = () => {
     setShowNeighborhoods(true);
     setShowWaiting(false);
   };
 
+  //Troca de modal com o nome do bairro
   const handleModalChoice = (neighborhood: string) => {
     setModalChoice(true);
     setChoice(neighborhood);
   };
 
+  //Sair do modal
   const handleClose = () => {
     setModalChoice(false);
   };
@@ -97,11 +102,21 @@ const SearchAndMap: React.FC = () => {
               handleSelect();
             }}
           >
-            <option value={0} onClick={() => setShowWaiting(true)}>
+            <option
+              value={0}
+              onClick={() => {
+                setShowWaiting(true);
+                setShowNeighborhoods(false);
+              }}
+            >
               Selecione uma zona
             </option>
             {data.map((item: Neighborhoods) => (
-              <option key={item.zone} value={item.zone}>
+              <option
+                key={item.zone}
+                value={item.zone}
+                onClick={() => handleSelectZone(item.zone)}
+              >
                 {`Zona ${item.zone}`}
               </option>
             ))}
@@ -141,18 +156,22 @@ const SearchAndMap: React.FC = () => {
           )}
           {showNeighborhood && (
             <div className="neighborhoods">
-              {!!neighborhoods.length &&
-                neighborhoods.map((neighborhood: Neighborhood) => (
-                  <Button
-                    className="botao-neighborhoods"
-                    onClick={() => {
-                      handleModalChoice(neighborhood.name);
-                      setNeighborhoodId(neighborhood.id);
-                    }}
-                  >
-                    {neighborhood.name}
-                  </Button>
-                ))}
+              <div className="text">
+                <h1>Zona {zoneSelectd}</h1>
+              </div>
+              <div className="box1">
+                {!!neighborhoods.length &&
+                  neighborhoods.map((neighborhood: Neighborhood) => (
+                    <Button
+                      onClick={() => {
+                        handleModalChoice(neighborhood.name);
+                        setNeighborhoodId(neighborhood.id);
+                      }}
+                    >
+                      {neighborhood.name}
+                    </Button>
+                  ))}
+              </div>
             </div>
           )}
         </div>

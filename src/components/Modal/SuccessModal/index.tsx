@@ -41,9 +41,12 @@ const SuccessModal: React.FC<Props> = (props) => {
             {/* <PersonIcon style={{ color: "grey", fontSize: 35 }} /> */}
             <p>Usuário teste</p>
           </Row>
-          <p>ID do bairro: {props.id}</p>
-          <p>Zona do bairro: {props.zone}</p>
-          <p>"{props.feedback}"</p>
+          <p>
+            {props.neighborhood}: Zona {props.zone} / ID = {props.id}
+          </p>
+          <div className="box1">
+            <p>{props.feedback}</p>
+          </div>
         </div>
       </Modal.Body>
     </Modal>

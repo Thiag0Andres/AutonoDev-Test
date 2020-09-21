@@ -20,15 +20,18 @@ interface Props {
 }
 
 const MessageModal: React.FC<Props> = (props) => {
-  const [feedback, setFeedback] = useState("");
+  //Estados
+  const [feedback, setFeedback] = useState<string>("");
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showError, setShowError] = useState(false);
 
+  //Fecha os modais
   const handleClose = () => {
     setShowSuccessModal(false);
     setShowError(false);
   };
 
+  //Submissão para o modal de sucesso
   const handleSubmit = () => {
     if (feedback) {
       setShowSuccessModal(true);
@@ -37,6 +40,7 @@ const MessageModal: React.FC<Props> = (props) => {
       setShowError(true);
     }
   };
+
   return (
     <>
       <Modal

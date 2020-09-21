@@ -9,19 +9,19 @@ export const checkPassword = (password: string, confirmPassword: string) => {
   return false;
 };
 
-export const checkAuth = (validationCase: string, value: string) => {
+export const checkAuth = (validationCase: string, value: string | any) => {
   let validation = false;
   switch (validationCase) {
-    case 'email':
-      if (value !== '' && validateEmail(value) === false) {
+    case "email":
+      if (value !== "" && validateEmail(value) === false) {
         // toast.error('Email inválido!');
         validation = false;
         return false;
       }
       validation = true;
       return true;
-    case 'password':
-      if (value === '') {
+    case "password":
+      if (value === "") {
         // toast.error('Preencha a senha!');
         validation = false;
         return false;
@@ -29,19 +29,12 @@ export const checkAuth = (validationCase: string, value: string) => {
       validation = true;
       return true;
 
-    case 'auth':
-      if (value === 'Senha Incorreta') {
+    case "auth":
+      if (
+        value.email !== "thiagoapalacios@hotmail.com" ||
+        value.password !== "123456"
+      ) {
         // toast.error(value);
-        validation = false;
-        return false;
-      }
-      if (value === 'record not found') {
-        // toast.error('Email não cadastrado');
-        validation = false;
-        return false;
-      }
-      if (value === null || value === undefined) {
-        // toast.error('Cadastro não localizado');
         validation = false;
         return false;
       }

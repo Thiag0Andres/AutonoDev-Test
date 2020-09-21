@@ -1,8 +1,12 @@
 import React from "react";
+
+//Icons
 import { BiSearchAlt } from "react-icons/bi";
+
+//Dom
 import { Link } from "react-router-dom";
 
-//image
+//images
 import PointMap from "../../images/PointMap.svg";
 
 import "./styles.scss";

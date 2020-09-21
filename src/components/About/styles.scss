@@ -89,3 +89,26 @@
     }
   }
 }
+
+@media (max-width: 900px) {
+  #page-home-about .content {
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  #page-home-about .content main {
+    align-items: center !important;
+  }
+
+  #page-home-about .content main h1 {
+    font-size: 42px !important;
+  }
+
+  #page-home-about .content main p {
+    font-size: 24px !important;
+  }
+
+  #page-home-about .image-about img {
+    display: none !important;
+  }
+}

@@ -210,3 +210,180 @@
     }
   }
 }
+
+@media screen and (max-width: 950px) {
+  .box1 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .box1 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
+@media screen and (max-width: 697px) {
+  .box1 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .leaflet-container {
+    width: 600px !important;
+    height: 350px !important;
+  }
+}
+
+@media screen and (max-width: 602px) {
+  .box1 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .field {
+    width: 350px !important;
+    .select {
+      font-size: 18px;
+    }
+  }
+  .leaflet-container {
+    width: 500px !important;
+    height: 330px !important;
+  }
+}
+
+@media screen and (max-width: 492px) {
+  .box1 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .field {
+    width: 350px !important;
+    .select {
+      font-size: 18px;
+    }
+  }
+  .leaflet-container {
+    width: 420px !important;
+    height: 270px !important;
+  }
+}
+
+@media screen and (max-width: 433px) {
+  .box1 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .field {
+    width: 250px !important;
+    .select {
+      font-size: 14px;
+    }
+  }
+  .leaflet-container {
+    width: 350px !important;
+    height: 220px !important;
+  }
+}
+
+@media screen and (max-width: 412px) {
+  .box1 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .box1 {
+    padding-top: 90px !important;
+  }
+
+  .field {
+    width: 250px !important;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .box1 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .box1 {
+    padding-top: 40px !important;
+    .field {
+      width: 250px !important;
+    }
+    .leaflet-container {
+      width: 330px !important;
+      height: 190px !important;
+    }
+    .neighborhoods {
+      width: 300px !important;
+      height: 200px !important;
+      max-width: 100% !important;
+      max-height: 150px !important;
+      overflow: auto !important;
+      .button {
+        font-size: 0.9rem !important;
+        margin-top: 0 !important;
+        margin-bottom: 5px !important;
+        width: 140px !important;
+        height: 30px !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 362px) {
+  .box1 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .box1 {
+    padding-top: 40px !important;
+    .field {
+      width: 250px !important;
+    }
+    .leaflet-container {
+      width: 330px !important;
+      height: 190px !important;
+    }
+    .neighborhoods {
+      width: 300px !important;
+      height: 200px !important;
+      max-width: 100% !important;
+      button {
+        margin-top: 0 !important;
+        width: 140px !important;
+        height: 30px !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 323px) {
+  .box1 {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .box1 {
+    padding-top: 40px !important;
+
+    .field {
+      width: 190px !important;
+    }
+    .leaflet-container {
+      width: 270px !important;
+      height: 160px !important;
+    }
+    .neighborhoods {
+      width: 300px !important;
+      height: 200px !important;
+      max-width: 100% !important;
+      ::-webkit-search-results-button {
+        padding: 0 !important;
+        margin-top: 0 !important;
+        width: 110px !important;
+        height: 25px !important;
+      }
+    }
+  }
+}

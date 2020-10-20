@@ -26,7 +26,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 💻 Projeto
 
-AutonoDev é uma ferramenta desenvolvida para localizar as diversas zonas de João Pessoa. Foi idealizado no intuito de coletar informações, a partir de comentários das respectivas zonas dacidade, para promover um feedback das regiões.
+AutonoDev é uma ferramenta desenvolvida para localizar as diversas zonas de João Pessoa. Foi idealizado no intuito de coletar informações, a partir de comentários das respectivas zonas da cidade, para promover um feedback das regiões.
 
 ## 🤔 Como contribuir
 
